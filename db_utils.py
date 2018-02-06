@@ -17,10 +17,11 @@ def get_podcasts():
     podcasts = c.execute("SELECT title, image, link FROM podcasts").fetchall()
     for t,i,l in podcasts:
         podcast_episodes = []
-        for et, el, ed, ep, eg in c.execute("SELECT title, link, description, pubdate, guid FROM episodes WHERE podcast_id == (SELECT rowid FROM podcasts WHERE link == ?)", (l, )).fetchall():
+        for et, el, ea, ed, ep, eg in c.execute("SELECT title, link, audio_type, description, pubdate, guid FROM episodes WHERE podcast_id == (SELECT rowid FROM podcasts WHERE link == ?)", (l, )).fetchall():
             podcast_episodes.append({ \
                 "title":et, \
                 "link":el, \
+                "audio_type":ea, \
                 "description":ed, \
                 "pubDate":ep, \
                 "guid":eg, \
@@ -29,26 +30,19 @@ def get_podcasts():
     return retval
 
 def episode_extrator(inepisode):
-    # print inepisode.getchildren()
-    # print inepisode.find("title").text
-    # temptitle = inepisode.find("title")
-    # templink = inepisode.find("link")
-    # tempdescription = inepisode.find("description")
-    # temppubDate = inepisode.find("pubDate")
-    # tempguid = inepisode.find("guid")
 
+    #TODO this could all be better
     temp = [ \
         inepisode.find("title"), \
-        inepisode.find("link"), \
+        inepisode.find("enclosure").attrib["url"], \
+        inepisode.find("enclosure").attrib["type"], \
         inepisode.find("description"), \
         inepisode.find("pubDate"), \
         inepisode.find("guid"), \
         ]
     for i in xrange(len(temp)):
-        if temp[i] is not None:
-
+        if temp[i] is not None and type(temp[i]) is not str:
             temp[i] = temp[i].text
-#    print temp
     return temp
 
 def add_podcast(inlink):
@@ -60,9 +54,6 @@ def add_podcast(inlink):
 
 
     title = channel.find("title").text
-#    image_link = "Image", channel.find("itunes:image").find("url").text[1]
-#    image_link = "Image", channel.find("itunes:image").attrib
-#    image_link = channel.find("image", itunes_namespace).getchildren()
     image_link = "NULL"
     link = channel.find("link").text
 
@@ -73,10 +64,8 @@ def add_podcast(inlink):
     # print "HERE", repr(title), repr(image_link), repr(link)
     c.execute("INSERT INTO podcasts VALUES (?,?,?)",(title, image_link, link, ))
 
-    # for episode in channel.findall("item"):
-    #     pass
     podcast_rowid = c.execute("SELECT rowid FROM podcasts WHERE link == ?", (link, )).fetchone()[0]
-    c.executemany("INSERT INTO episodes VALUES (?,?,?,?,?,{})".format(podcast_rowid), map(episode_extrator, channel.findall("item")))
+    c.executemany("INSERT INTO episodes VALUES (?,?,?,?,?,?,{})".format(podcast_rowid), map(episode_extrator, channel.findall("item")))
     return 1
 
 def main():
@@ -87,7 +76,8 @@ def main():
     c.execute("""
 CREATE TABLE episodes (
     title TEXT, 
-    link TEXT, 
+    link TEXT,
+    audio_type TEXT,
     description TEXT, 
     pubdate TEXT, 
     guid TEXT,

@@ -12,10 +12,17 @@ div.podcast {
 }
 div.episode {
   float: left;
-  width: 25%;
+  width: 3in;
   display: inline-block;
 }
 </style>
+<script type="text/javascript">
+  // button_replace()
+function button_replace(inid) {
+  document.getElementById(inid).innerHTML = '<audio controls><source src=\"' + inid + '\" type="audio/mpeg"></audio>';
+  return;
+}
+</script>
 </head>
 <body>
 
@@ -30,10 +37,10 @@ div.episode {
   <div class="episode">
     <table>
       <tr><th>Title</th><td>{{ episode["title"] }}</td></tr>
-      <tr><th>Link</th><td>{{ episode["link"] }}</td></tr>
 <!--     <tr><th>Description</th><td>{{ episode["description"] }}</td></tr> -->
       <tr><th>Date</th><td>{{ episode["pubDate"] }}</td></tr>
-      <tr><th>Episode</th><td>{{ episode["guid"] }}</td></tr>
+      <tr><th>Link</th><td id='{{ episode["link"] }}'><button onmouseup="button_replace('{{episode['link']}}')">Load</button></td></tr>
+<!--       <tr><th>Episode</th><td>{{ episode["guid"] }}</td></tr> -->
     </table>
   </div>
   % end
