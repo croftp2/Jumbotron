@@ -1,13 +1,45 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Jumbotron</title>
+<title>JUMBOTRON</title>
+<style type="text/css">
+body {
+  font-family: Arial;
+}
+div.podcast {
+  float: left;
+  width: 100%;
+}
+div.episode {
+  float: left;
+  width: 25%;
+  display: inline-block;
+}
+</style>
 </head>
 <body>
 
-<h1>My First Heading</h1>
-<p>My first paragraph.</p>
+<h1>JUMBOTRON</h1>
 <hr>
+% for podcast in podcasts:
+<div class="podcast">
+  <h2>{{ podcast["title"] }}</h2>
+
+
+  % for episode in podcast["episodes"][:4]:
+  <div class="episode">
+    <table>
+      <tr><th>Title</th><td>{{ episode["title"] }}</td></tr>
+      <tr><th>Link</th><td>{{ episode["link"] }}</td></tr>
+<!--     <tr><th>Description</th><td>{{ episode["description"] }}</td></tr> -->
+      <tr><th>Date</th><td>{{ episode["pubDate"] }}</td></tr>
+      <tr><th>Episode</th><td>{{ episode["guid"] }}</td></tr>
+    </table>
+  </div>
+  % end
+
+</div>
+% end
 
 </body>
 </html>
