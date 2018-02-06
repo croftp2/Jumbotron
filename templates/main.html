@@ -2,27 +2,8 @@
 <html>
 <head>
 <title>JUMBOTRON</title>
-<style type="text/css">
-body {
-  font-family: Arial;
-}
-div.podcast {
-  float: left;
-  width: 100%;
-}
-div.episode {
-  float: left;
-  width: 3in;
-  display: inline-block;
-}
-</style>
-<script type="text/javascript">
-  // button_replace()
-function button_replace(inid) {
-  document.getElementById(inid).innerHTML = '<audio controls><source src=\"' + inid + '\" type="audio/mpeg"></audio>';
-  return;
-}
-</script>
+<link rel="stylesheet" type="text/css" href="css/main.css">
+<script type="text/javascript" src="js/button_replace.js"></script>
 </head>
 <body>
 

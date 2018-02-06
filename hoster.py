@@ -21,9 +21,18 @@ def index():
 #    pprint(podcasts)
     return template("templates/main.html", podcasts=podcasts)
 
+@get("/css/<cssfile>")
+def cssfile(cssfile):
+    return static_file(cssfile, root="css")
+
+@get("/js/<jsfile>")
+def jsfile(jsfile):
+    return static_file(jsfile, root="js")
+
 def main():
 
-    db_utils.add_podcast("http://localhost:1233/replyall.xml")
+#    db_utils.add_podcast("http://localhost:1233/replyall.xml")
+    db_utils.add_podcast("http://feeds.gimletmedia.com/hearreplyall")
     db_utils.add_podcast("http://localhost:1233/serial.xml")
     run(host="0.0.0.0",port=14233)
 

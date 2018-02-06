@@ -1,0 +1,17 @@
+body {
+  font-family: Arial;
+  background-color: #142634;
+  color: #DBC7C1;
+}
+div.podcast {
+  float: left;
+  width: 100%;
+}
+div.episode {
+  float: left;
+  width: 3in;
+  display: inline-block;
+}
+audio {
+  width: 100%;
+}

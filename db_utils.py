@@ -47,7 +47,9 @@ def episode_extrator(inepisode):
 
 def add_podcast(inlink):
     site, reqstr = inlink.split('/',3)[2:]
-    site, port = site.split(':')
+    port = 80
+    if ':' in site:
+        site, port = site.split(':')
     tree = ET.parse(urllib.urlopen(inlink))
     treeroot = tree.getroot()
     channel = treeroot.find("channel")
