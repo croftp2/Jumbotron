@@ -33,7 +33,8 @@ def main():
 
 #    db_utils.add_podcast("http://localhost:1233/replyall.xml")
     db_utils.add_podcast("http://feeds.gimletmedia.com/hearreplyall")
-    db_utils.add_podcast("http://localhost:1233/serial.xml")
+    db_utils.add_podcast("http://feeds.serialpodcast.org/serialpodcast")
+    db_utils.add_podcast("http://feeds.99percentinvisible.org/99percentinvisible")
     run(host="0.0.0.0",port=14233)
 
 if __name__ == '__main__':
