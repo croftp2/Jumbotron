@@ -7,7 +7,6 @@ from bottle import get, post, static_file, template, run, request
 
 import os
 from pprint import pformat, pprint
-import socket
 
 import db_utils
 
@@ -38,9 +37,9 @@ def main():
     db_utils.add_podcast("http://feeds.serialpodcast.org/serialpodcast")
     db_utils.add_podcast("http://feeds.99percentinvisible.org/99percentinvisible")
     try:
-        run(host="0.0.0.0",port=14233)
-    except socket.error:
         run(host="0.0.0.0",port=os.environ["PORT"])
+    except KeyError:
+        run(host="0.0.0.0",port=14233)
 
 if __name__ == '__main__':
     exit(main())
