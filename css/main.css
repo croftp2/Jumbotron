@@ -12,6 +12,18 @@ div.episode {
   width: 3in;
   display: inline-block;
 }
+div.fullwidth {
+    float: left;
+    width: 100%;
+}
+div.titleheader {
+    float: left;
+}
+div.audiometer {
+    float: right;
+    width: 6in;
+    display: inline-block;
+}
 audio {
   width: 100%;
 }

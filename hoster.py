@@ -10,6 +10,11 @@ from pprint import pformat, pprint
 
 import db_utils
 
+@get("/episodes/<episode_id>")
+def get_episode_html(episode_id):
+    data = db_utils.get_episode_info(episode_id)
+    return template("templates/episode_chunk.html", edata=data)
+
 @post("/newpodcast/")
 def add_podcast():
     post_data = request.data
@@ -32,10 +37,6 @@ def jsfile(jsfile):
 
 def main():
 
-#    db_utils.add_podcast("http://localhost:1233/replyall.xml")
-    db_utils.add_podcast("http://feeds.gimletmedia.com/hearreplyall")
-    db_utils.add_podcast("http://feeds.serialpodcast.org/serialpodcast")
-    db_utils.add_podcast("http://feeds.99percentinvisible.org/99percentinvisible")
     try:
         run(host="0.0.0.0",port=os.environ["PORT"])
     except KeyError:
