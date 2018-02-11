@@ -15,6 +15,11 @@ def get_episode_html(episode_id):
     data = db_utils.get_episode_info(episode_id)
     return template("templates/episode_chunk.html", edata=data)
 
+@get("/podcasts/<podcast_id>")
+def get_podcast_page(podcast_id):
+    episodes = db_utils.get_episodes(podcast_id)
+    return template("templates/podcast_page.html",episodes=episodes)
+
 @post("/newpodcast/")
 def add_podcast():
     post_data = request.data
@@ -24,7 +29,6 @@ def add_podcast():
 @get("/")
 def index():
     podcasts = db_utils.get_podcasts()
-#    pprint(podcasts)
     return template("templates/main.html", podcasts=podcasts)
 
 @get("/css/<cssfile>")

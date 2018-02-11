@@ -13,6 +13,6 @@ function get_episode_html(episode_id) {
         }
         console.log("ready state change to " + this.readyState)
     };
-    xhttp.open("GET", "episodes/" + episode_id, true);
+    xhttp.open("GET", "/episodes/" + episode_id, true);
     xhttp.send();
 }

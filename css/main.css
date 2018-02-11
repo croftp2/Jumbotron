@@ -5,11 +5,12 @@ body {
 }
 div.podcast {
   float: left;
-  width: 100%;
+  width: 25%;
 }
 div.episode {
   float: left;
   width: 3in;
+  height: 2in;
   display: inline-block;
 }
 div.fullwidth {

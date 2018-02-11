@@ -2,8 +2,8 @@
 <html>
 <head>
 <title>JUMBOTRON</title>
-<link rel="stylesheet" type="text/css" href="css/main.css">
-<script type="text/javascript" src="js/button_replace.js"></script>
+<link rel="stylesheet" type="text/css" href="/css/main.css">
+<script type="text/javascript" src="/js/button_replace.js"></script>
 </head>
 <body>
 
@@ -12,24 +12,14 @@
     <h1>JUMBOTRON</h1>
     <hr>
   </div>
-  <div class="audiometer" id="audiometer">
-  </div>
 </div>
+
 % for podcast in podcasts:
 <div class="podcast">
-  <h2>{{ podcast["title"] }}</h2>
-
-
-  % for episode in podcast["episodes"][:4]:
-  <div class="episode">
-    <table>
-      <tr><th>Title</th><td>{{ episode["title"] }}</td></tr>
-      <tr><th>Date</th><td>{{ episode["pubDate"] }}</td></tr>
-      <tr><td id={{ episode["eid"] }}><button onmouseup="get_episode_html('{{episode['eid']}}')">Load</button></td></tr>
-    </table>
-  </div>
-  % end
-
+  <h2>{{ podcast['title'] }}</h2>
+  <a href="/podcasts/{{ podcast['pid'] }}">
+    <img src="{{ podcast['image_link'] }}" width="400" height="400">
+  </a>
 </div>
 % end
 

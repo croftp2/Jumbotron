@@ -3,6 +3,7 @@
 #Paul Croft
 #February 5, 2018
 
+from operator import itemgetter
 import urllib
 from sqlite3 import connect
 from pprint import pformat, pprint
@@ -48,25 +49,20 @@ LIMIT 1
         return "<Episode {}>".format(self.eid)
 
 
-def get_episode_info(inid):
-    return Episode(inid)
+def get_episode_info(ineid):
+    return Episode(ineid)
+
+def get_episodes(inpid):
+    erowids = c.execute("SELECT rowid FROM episodes WHERE podcast_id == ?",(inpid, )).fetchall()
+    episodes = map(Episode, map(itemgetter(0), erowids))
+    return episodes
+
 
 def get_podcasts():
     retval = []
-    podcasts = c.execute("SELECT title, image, link FROM podcasts").fetchall()
-    for t,i,l in podcasts:
-        podcast_episodes = []
-        for er, et, el, ea, ed, ep, eg in c.execute("SELECT rowid, title, link, audio_type, description, pubdate, guid FROM episodes WHERE podcast_id == (SELECT rowid FROM podcasts WHERE link == ?)", (l, )).fetchall():
-            podcast_episodes.append({ \
-                "eid":er, \
-                "title":et, \
-                "link":el, \
-                "audio_type":ea, \
-                "description":ed, \
-                "pubDate":ep, \
-                "guid":eg, \
-                })
-        retval.append({"title":t,"image_link":i,"link":l, "episodes": podcast_episodes})
+    podcasts = c.execute("SELECT rowid, title, image, link FROM podcasts").fetchall()
+    for r,t,i,l in podcasts:
+        retval.append({"pid":r, "title":t,"image_link":i,"link":l})
     return retval
 
 def episode_extrator(inepisode):
