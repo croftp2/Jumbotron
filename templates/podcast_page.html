@@ -1,35 +1,40 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>JUMBOTRON</title>
+<title>JUMBOTRON - {{ podcast_title }}</title>
 <link rel="stylesheet" type="text/css" href="/css/main.css">
-<script type="text/javascript" src="/js/button_replace.js"></script>
+<script type="text/javascript" src="/js/general.js"></script>
 </head>
 <body>
 
 <div class="fullwidth">
   <div class="titleheader">
-    <h1><a href="/">JUMBOTRON</a></h1>
-    <hr>
-  </div>
-  <div class="audiometer" id="audiometer">
+    <div class="homelink">
+      <h1><a href="/">JUMBOTRON</a></h1>
+      <h2>{{ podcast_title }}</h2>
+    </div>
+    <div class="audiometer" id="audiometer">
+    </div>
   </div>
 </div>
-<div style="margin-top: 10px; margin-bottom: 10px;">
+<!-- <div style="margin-top: 10px; margin-bottom: 10px;">
   <a href="/">Return to main</a>
 </div>
-% for episode in episodes:
-<div class="episode">
-  <table>
-    <tr><th>Title</th><td>{{ episode.title[0] }}</td></tr>
-    <tr><th>Date</th><td>{{ episode.pubdate[0] }}</td></tr>
-    <tr><td id={{ episode.eid }}><button onmouseup="get_episode_html('{{ episode.eid }}')">Play</button></td></tr>
-  </table>
+ -->
+<div class="episodes">
+  % for episode in episodes:
+  <div class="episode">
+    <table>
+      <tr><th>Title</th><td>{{ episode.title[0] }}</td></tr>
+      <tr><th>Date</th><td>{{ episode.pubdate[0] }}</td></tr>
+      <tr><td id={{ episode.eid }}><button onmouseup="get_episode_html('{{ episode.eid }}')">Play</button></td></tr>
+    </table>
+  </div>
+  % end
 </div>
-% end
-<div class="fullwidth">
+<!-- <div class="fullwidth">
   <button onmouseup="scroll_to_top();">Back to top</button>
 </div>
-
+ -->
 </body>
 </html>

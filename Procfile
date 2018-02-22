@@ -1,1 +1,1 @@
-web: python db_utils.py; python hoster.py
+web: python db_utils.py example_podcasts.list; python hoster.py

@@ -7,6 +7,9 @@ div.podcast {
   float: left;
   width: 450px;
 }
+div.episodes {
+  margin-top: 200px;
+}
 div.episode {
   float: left;
   width: 3in;
@@ -14,22 +17,34 @@ div.episode {
   display: inline-block;
 }
 div.fullwidth {
-    float: left;
-    width: 100%;
-}
-div.titleheader {
-    float: left;
-}
-div.audiometer {
-    float: right;
-    width: 6in;
-    display: inline-block;
-}
-audio {
+  float: left;
   width: 100%;
 }
+div.titleheader {
+  float: left;
+  position: fixed;
+  background-color: #0d324c;
+  padding: 20px;
+  top:0;
+  left: 0;
+  width: 100%;
+  height: 120px;
+}
+div.homelink {
+  float: left;
+  width: 25%;
+  display: inline-block;
+}
+div.audiometer {
+  /*float: right;*/
+  width: 75%;
+  display: inline-block;
+}
+audio {
+  width: 75%;
+}
 h1 {
-    color: #DBC7C1;
+  color: #DBC7C1;
 }
 img.podcast {
   width: 400px;

@@ -108,6 +108,9 @@ def add_podcast(inlink):
     c.executemany("INSERT INTO episodes VALUES (?,?,?,?,?,?,{})".format(podcast_rowid), map(episode_extrator, channel.findall("item")))
     return 1
 
+def get_podcast_title(inpid):
+    return c.execute("SELECT title FROM podcasts WHERE rowid == ? LIMIT 1", (inpid,)).fetchone()[0]
+
 def main():
     c.execute("DROP TABLE IF EXISTS podcasts")
     c.execute("DROP TABLE IF EXISTS episodes")

@@ -17,8 +17,9 @@ def get_episode_html(episode_id):
 
 @get("/podcasts/<podcast_id>")
 def get_podcast_page(podcast_id):
+    podcast_title = db_utils.get_podcast_title(podcast_id)
     episodes = db_utils.get_episodes(podcast_id)
-    return template("templates/podcast_page.html",episodes=episodes)
+    return template("templates/podcast_page.html", episodes=episodes, podcast_title=podcast_title)
 
 @post("/newpodcast/")
 def add_podcast():
