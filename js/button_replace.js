@@ -4,14 +4,12 @@ function button_replace(inid) {
   return;
 }
 function get_episode_html(episode_id) {
-    console.log("Got request for " + episode_id)
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            console.log("HERE")
             document.getElementById("audiometer").innerHTML = this.responseText;
+            document.getElementById("audioplayer").play();
         }
-        console.log("ready state change to " + this.readyState)
     };
     xhttp.open("GET", "/episodes/" + episode_id, true);
     xhttp.send();
