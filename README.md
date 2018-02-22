@@ -7,8 +7,8 @@ Things I would like to add:
 + Check for new episodes (daily?)
 + Users
 + Logins
- + Only show podcasts for the current user
- + Track which episodes have been completed
- + Track episode progress between sessions
+ +  Only show podcasts for the current user
+ +  Track which episodes have been completed
+ +  Track episode progress between sessions
 + The ability to add more podcasts
- + Find a podcast list
+ +  Find a podcast list
