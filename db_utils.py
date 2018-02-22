@@ -6,6 +6,8 @@
 from operator import itemgetter
 import urllib
 from sqlite3 import connect
+import string
+from sys import argv
 from pprint import pformat, pprint
 import xml.etree.ElementTree as ET
 
@@ -60,7 +62,7 @@ def get_episodes(inpid):
 
 def get_podcasts():
     retval = []
-    podcasts = c.execute("SELECT rowid, title, image, link FROM podcasts").fetchall()
+    podcasts = c.execute("SELECT rowid, title, image, link FROM podcasts ORDER BY TITLE").fetchall()
     for r,t,i,l in podcasts:
         retval.append({"pid":r, "title":t,"image_link":i,"link":l})
     return retval
@@ -121,10 +123,13 @@ CREATE TABLE episodes (
     guid TEXT,
     podcast_id INT)""")
 
-#    add_podcast("http://localhost:1233/replyall.xml")
-    add_podcast("http://feeds.gimletmedia.com/hearreplyall")
-    add_podcast("http://feeds.serialpodcast.org/serialpodcast")
-    add_podcast("http://feeds.99percentinvisible.org/99percentinvisible")
+    podcast_list = open(argv[1]).read().split('\n')
+    podcast_list = filter(None, map(string.strip, podcast_list))#Remove blank lines
+    podcast_list = filter(lambda x:"#" != x[0],podcast_list)#Remove commented items
+    podcast_list = set(podcast_list)#Remove duplicates
+
+    for podcast in podcast_list:
+        add_podcast(podcast)
 
     conn.commit()
 

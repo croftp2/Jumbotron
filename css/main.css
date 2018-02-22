@@ -5,7 +5,7 @@ body {
 }
 div.podcast {
   float: left;
-  width: 25%;
+  width: 450px;
 }
 div.episode {
   float: left;
@@ -30,4 +30,13 @@ audio {
 }
 h1 {
     color: #DBC7C1;
+}
+img.podcast {
+  width: 400px;
+  height: 400px;
+  margin: 10px;
+}
+h2.podcast_title {
+  height: 30px;
+  margin-bottom: 30px;
 }

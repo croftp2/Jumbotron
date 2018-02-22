@@ -1,6 +1,5 @@
 function button_replace(inid) {
   document.getElementById("audiometer").innerHTML = '<audio controls><source src=\"' + inid + '\" type="audio/mpeg"></audio>';
-  // document.getElementById("audiometer").innerHTML = '<source src=\"' + inid + '\" type="audio/mpeg">';
   return;
 }
 function get_episode_html(episode_id) {
@@ -13,4 +12,8 @@ function get_episode_html(episode_id) {
     };
     xhttp.open("GET", "/episodes/" + episode_id, true);
     xhttp.send();
+}
+function scroll_to_top() {
+  document.body.scrollTop = 0;
+  document.documentElement.scrollTop = 0;
 }
