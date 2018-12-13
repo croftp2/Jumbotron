@@ -4,6 +4,7 @@
 <title>JUMBOTRON</title>
 <link rel="stylesheet" type="text/css" href="/css/main.css">
 <script type="text/javascript" src="/js/general.js"></script>
+<script type="text/javascript" src="/js/podcasts_page.js"></script>
 </head>
 <body>
 
@@ -12,12 +13,25 @@
   <hr>
 </div>
 
-% for podcast in podcasts:
+<div class="fullwidth" id="add_podcasts_div">
+  <h3>Add a podcasts via RSS feed</h3>
+  <input type="text" name="new_rss" id="new_rss" default="http link here...">
+  <button onmouseup="submit_new_rss();" type="submit">Submit</button>
+  <hr>
+</div>
+
+% if podcasts:
+  % for podcast in podcasts:
 <div class="podcast">
   <h2 class="podcast_title">{{ podcast['title'] }}</h2>
   <a href="/podcasts/{{ podcast['pid'] }}">
     <img src="{{ podcast['image_link'] }}" width="400" height="400" class="podcast">
   </a>
+</div>
+  % end
+% else:
+<div class="fullwidth">
+<h1>No podcasts tracked yet :/</h1>  
 </div>
 % end
 

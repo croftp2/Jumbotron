@@ -3,6 +3,7 @@
 #Paul Croft
 #February 5, 2018
 
+from argparse import ArgumentParser
 from operator import itemgetter
 import urllib
 from sqlite3 import connect
@@ -106,12 +107,13 @@ def add_podcast(inlink):
 
     podcast_rowid = c.execute("SELECT rowid FROM podcasts WHERE link == ?", (link, )).fetchone()[0]
     c.executemany("INSERT INTO episodes VALUES (?,?,?,?,?,?,{})".format(podcast_rowid), map(episode_extrator, channel.findall("item")))
-    return 1
+    conn.commit()
+    return title
 
 def get_podcast_title(inpid):
     return c.execute("SELECT title FROM podcasts WHERE rowid == ? LIMIT 1", (inpid,)).fetchone()[0]
 
-def main():
+def build_tables():
     c.execute("DROP TABLE IF EXISTS podcasts")
     c.execute("DROP TABLE IF EXISTS episodes")
 
@@ -125,6 +127,16 @@ CREATE TABLE episodes (
     pubdate TEXT, 
     guid TEXT,
     podcast_id INT)""")
+
+def get_number_of_podcasts():
+    return c.execute("SELECT Count(rowid) FROM podcasts").fetchone()[0]
+
+def main():
+
+    build_tables()
+
+    # parser = ArgumentParser()
+    # parser.add_argument("podcast_file", help="Name of podcast list file")
 
     podcast_list = open(argv[1]).read().split('\n')
     podcast_list = filter(None, map(string.strip, podcast_list))#Remove blank lines

@@ -3,10 +3,12 @@
 #Paul Croft
 #February 5, 2018
 
-from bottle import get, post, static_file, template, run, request
+from bottle import get, post, static_file, template, run, request, response
 
+from argparse import ArgumentParser
 import os
 from pprint import pformat, pprint
+from sqlite3 import OperationalError, IntegrityError
 
 import db_utils
 
@@ -21,11 +23,19 @@ def get_podcast_page(podcast_id):
     episodes = db_utils.get_episodes(podcast_id)
     return template("templates/podcast_page.html", episodes=episodes, podcast_title=podcast_title)
 
-@post("/newpodcast/")
+@post("/new_rss/")
 def add_podcast():
-    post_data = request.data
-    print post_data
-    return index
+    post_data = request.body.read(1024)
+    try:
+        title = db_utils.add_podcast(post_data)
+        return title
+    except ValueError:
+        response.status = 406
+        return "misc failed"
+    except IntegrityError:
+        response.status = 409
+        return "duplicated podcast"
+
 
 @get("/")
 def index():
@@ -43,9 +53,16 @@ def jsfile(jsfile):
 def main():
 
     try:
-        run(host="0.0.0.0",port=os.environ["PORT"])
+        print("{} podcasts tracked".format(db_utils.get_number_of_podcasts()))
+    except OperationalError:
+        print("No tables. Building tables now...")
+        db_utils.build_tables()
+        print("Done")
+
+    try:
+        run(host="0.0.0.0", port=os.environ["PORT"])
     except KeyError:
-        run(host="0.0.0.0",port=14233)
+        run(host="0.0.0.0", port=14233)
 
 if __name__ == '__main__':
     exit(main())
