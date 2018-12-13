@@ -6,7 +6,7 @@
 <script type="text/javascript" src="/js/general.js"></script>
 <script type="text/javascript" src="/js/podcasts_page.js"></script>
 </head>
-<body>
+<body onload="display_podcasts();">
 
 <div class="fullwidth">
   <h1>JUMBOTRON</h1>
@@ -20,20 +20,9 @@
   <hr>
 </div>
 
-% if podcasts:
-  % for podcast in podcasts:
-<div class="podcast">
-  <h2 class="podcast_title">{{ podcast['title'] }}</h2>
-  <a href="/podcasts/{{ podcast['pid'] }}">
-    <img src="{{ podcast['image_link'] }}" width="400" height="400" class="podcast">
-  </a>
+<div class="fullwidth" id="podcast_spaces">
+<p>Loading podcasts...</p>
 </div>
-  % end
-% else:
-<div class="fullwidth">
-<h1>No podcasts tracked yet :/</h1>  
-</div>
-% end
 
 </body>
 </html>

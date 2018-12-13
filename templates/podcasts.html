@@ -1,0 +1,13 @@
+% if podcasts:
+  % for podcast in podcasts:
+<div class="podcast">
+  <h2 class="podcast_title">{{ podcast['title'] }}</h2>
+  <a href="/podcasts/{{ podcast['pid'] }}">
+    <img src="{{ podcast['image_link'] }}" width="400" height="400" class="podcast">
+  </a>
+</div>
+  % end
+% else:
+<h1>No podcasts tracked yet :/</h1>  
+</div>
+% end

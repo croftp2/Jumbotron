@@ -24,7 +24,7 @@ def get_podcast_page(podcast_id):
     return template("templates/podcast_page.html", episodes=episodes, podcast_title=podcast_title)
 
 @post("/new_rss/")
-def add_podcast():
+def api_add_podcast():
     post_data = request.body.read(1024)
     try:
         title = db_utils.add_podcast(post_data)
@@ -37,10 +37,17 @@ def add_podcast():
         return "duplicated podcast"
 
 
+@get("/podcasts_html/")
+def get_podcasts_html():
+    podcasts = db_utils.get_podcasts()
+    return template("templates/podcasts.html", podcasts=podcasts)
+
+
 @get("/")
 def index():
-    podcasts = db_utils.get_podcasts()
-    return template("templates/main.html", podcasts=podcasts)
+    # podcasts = db_utils.get_podcasts()
+    # return template("templates/main.html", podcasts=podcasts)
+    return template("templates/main.html")
 
 @get("/css/<cssfile>")
 def cssfile(cssfile):
